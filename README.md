@@ -9,17 +9,24 @@ Increase localStorage size 10 times or more! This tiny script uses bare minimum 
 
 ## Usage
 
-Setting values:
+
+```javascript
+// Setting values
 ldb.set('nameGoesHere', 'value goes here');
 
-Getting values - callback is required because the data is being retrieved asynchronously:
+// Getting values - callback is required because the data is being retrieved asynchronously:
 ldb.get('nameGoesHere', function (value) {
   console.log('And the value is', value);
 });
+```
 
 ## For modern browsers only(Chrome, Firefox, Edge) but not IE or Safari
 
 This version makes setting values even easier and it looks more like original localStorage. To use this mode uncomment marked section in localStorageDB.js
 
 Now you can set values like this:
+```javascript
 ldb.nameGoesHere = 'value goes here';
+```
+
+Getting will stay the same, because callback is still needed for asynchronous retrieval
