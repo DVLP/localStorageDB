@@ -19,10 +19,14 @@
   };
 
   request.onupgradeneeded = function(event) {
-    db = event.target.result;
-    db.createObjectStore('str', {
+    db = null;
+    var store = event.target.result.createObjectStore('str', {
       keyPath: 'k'
     });
+
+    store.transaction.oncomplete = function (e){
+      db = e.target.db; 
+    };
   };
 
   function getValue(key, callback) {
