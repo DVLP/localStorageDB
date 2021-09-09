@@ -20,7 +20,7 @@
 
   request.onupgradeneeded = function(event) {
     db = null;
-    var store = event.target.result.createObjectStore('str', {
+    var store = event.target.result.createObjectStore('s', {
       keyPath: 'k'
     });
 
@@ -36,7 +36,7 @@
       }, 100);
       return;
     }
-    db.transaction('str').objectStore('str').get(key).onsuccess = function(event) {
+    db.transaction('s').objectStore('s').get(key).onsuccess = function(event) {
       var result = (event.target.result && event.target.result.v) || null;
       callback(result);
     };
@@ -50,7 +50,7 @@
       // no callback for set needed because every next transaction will be anyway executed after this one
       keyValue.k = key;
       keyValue.v = value;
-      db.transaction('str', 'readwrite').objectStore('str').put(keyValue);
+      db.transaction('s', 'readwrite').objectStore('s').put(keyValue);
     }
   }
 
@@ -65,7 +65,7 @@
   //   set: function(func, key, value) {
   //     keyValue.k = key;
   //     keyValue.v = value;
-  //     db.transaction('str', 'readwrite').objectStore('str').put(keyValue);
+  //     db.transaction('s', 'readwrite').objectStore('s').put(keyValue);
   //   }
   // });
 })();
