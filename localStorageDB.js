@@ -46,11 +46,19 @@
 
   window['ldb'] = {
     get: getValue,
-    set: function(key, value) {
+    set: function(key, value, callback) {
       // no callback for set needed because every next transaction will be anyway executed after this one
       keyValue.k = key;
       keyValue.v = value;
-      db.transaction('s', 'readwrite').objectStore('s').put(keyValue);
+      let txn = db.transaction('s', 'readwrite'); 
+      txn.oncomplete = function(event) {
+        var toString$ = {}.toString;
+        if (toString$.call(callback).slice(8, -1) === 'Function') {
+          callback();
+        }
+      }
+      txn.objectStore('s').put(keyValue);
+      txn.commit();
     }
   }
 
@@ -65,7 +73,16 @@
   //   set: function(func, key, value) {
   //     keyValue.k = key;
   //     keyValue.v = value;
-  //     db.transaction('s', 'readwrite').objectStore('s').put(keyValue);
+
+  //    let txn = db.transaction('s', 'readwrite'); 
+  //    txn.oncomplete = function(event) {
+  //      var toString$ = {}.toString;
+  //      if (toString$.call(callback).slice(8, -1) === 'Function') {
+  //        callback();
+  //      }
+  //    }
+  //    txn.objectStore('s').put(keyValue);
+  //    txn.commit();
   //   }
   // });
 })();
