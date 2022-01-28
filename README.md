@@ -9,7 +9,13 @@ Increase localStorage size 10 times or more! This tiny script uses bare minimum 
 
 ## Usage
 
+You can either use the snippet at the bottom or install the module
+
+`npm i localstoragebooster`
+
 ```javascript
+import ldb from 'localstoragebooster'
+
 // Setting values
 ldb.set('nameGoesHere', 'value goes here');
 // or 
