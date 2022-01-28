@@ -29,6 +29,7 @@
   // if using proxy mode comment this
 
   var ldb = {
+    ready: false,
     get: function(key, callback) {
       if (!db) {
         setTimeout(function () { ldb.get(key, callback); }, 50);
@@ -56,11 +57,57 @@
         'v': value,
       });
       txn.commit();
-    }
+    },
+    delete: function(key, callback) {
+      if (!db) {
+        setTimeout(function () { ldb.delete(key, callback); }, 50);
+        return;
+      }
+      db.transaction('s', 'readwrite').objectStore('s').delete(key).onsuccess = function(event) {
+        if (callback) callback();
+      };
+    },
+    list: function(callback) {
+      if (!db) {
+        setTimeout(function () { ldb.list(callback); }, 50);
+        return;
+      }
+      db.transaction('s').objectStore('s').getAllKeys().onsuccess = function(event) {
+        var result = (event.target.result) || null;
+        callback(result);
+      };
+    },
+    getAll: function(callback) {
+      if (!db) {
+        setTimeout(function () { ldb.getAll(callback); }, 50);
+        return;
+      }
+      db.transaction('s').objectStore('s').getAll().onsuccess = function(event) {
+        var result = (event.target.result) || null;
+        callback(result);
+      };
+    },
+    clear: function(callback) {
+      if (!db) {
+        setTimeout(function () { ldb.clear(callback); }, 50);
+        return;
+      }
+      db.transaction('s', 'readwrite').objectStore('s').clear().onsuccess = function(event) {
+        if (callback) callback();
+      };
+    },
   }
-  win['ldb'] = ldb;
+  const exported = {
+    'get': ldb.get,
+    'set': ldb.set,
+    'delete': ldb.delete,
+    'list': ldb.list,
+    'getAll': ldb.getAll,
+    'clear': ldb.clear,
+  };
+  win['ldb'] = exported
   if (typeof module !== 'undefined') {
-    module.exports = ldb;
+    module.exports = exported;
   }
 
   // Use only for apps that will only work on latest devices only

@@ -1,6 +1,18 @@
 <h1 style="font-family: sans-serif;">Look in the console</h1>
-<script src="localStorageDB.min.js"></script>
+<script src="localdata.js"></script>
 <script>
-  window.ldb.set('some_name', 'Hello, I\'m a value!')
-  window.ldb.get('some_name', (result) => console.log(result))
+  var ldb = window.ldb
+  ldb.set('some_name', 'Hello, I\'m a value!')
+  ldb.set('some_name2', 'Hello, I\'m a value 2!')
+  ldb.get('some_name', (result) => console.log('Get value result:', result))
+  ldb.delete('some_name2')
+
+  ldb.list((result) => console.log('A list of keys', result))
+
+  ldb.set('apple')
+  ldb.set('pear')
+  ldb.set('cherry')
+  ldb.getAll((result) => console.log('All keys and values', result))
+  ldb.clear()
+
 </script>
