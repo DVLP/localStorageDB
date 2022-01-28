@@ -59,8 +59,8 @@
     }
   }
   win['ldb'] = ldb;
-  if (typeof Module !== 'undefined') {
-    Module.exports = ldb;
+  if (typeof module !== 'undefined') {
+    module.exports = ldb;
   }
 
   // Use only for apps that will only work on latest devices only
