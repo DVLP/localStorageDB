@@ -1,4 +1,4 @@
-# localStorageDB
+# Local Data - formerly localStorageDB
 Increase localStorage size 10 times or more! This tiny script uses bare minimum of IndexedDB to give you a simple key - value local storage system. It's asnychchronous so it's performance is also faster than native localStorage(in theory and this must be confirmed by testing)
 
 * 10x more space than localStorage
@@ -11,10 +11,10 @@ Increase localStorage size 10 times or more! This tiny script uses bare minimum 
 
 You can either use the snippet at the bottom or install the module
 
-`npm i localstoragebooster`
+`npm i localdata`
 
 ```javascript
-import ldb from 'localstoragebooster'
+import ldb from 'localdata'
 
 // Setting values
 ldb.set('nameGoesHere', 'value goes here');
@@ -31,7 +31,7 @@ ldb.get('nameGoesHere', function (value) {
 
 ## For modern browsers only(Chrome, Firefox, Edge) but not IE or Safari
 
-This version makes setting values even easier and it looks more like original localStorage. To use this mode uncomment marked section in localStorageDB.js
+This version makes setting values even easier and it looks more like original localStorage. To use this mode uncomment marked section in localdata.js
 
 Now you can set values like this:
 ```javascript
@@ -43,7 +43,7 @@ Getting will stay the same, because callback is still needed for asynchronous re
 ### You can use it as a one-liner in your JS code:
 Instead of including a file you can copy and paste this piece of code to your JS file
 
-> Minified by `uglifyjs -c -m -- localStorageDB.js > localStorageDB.min.js`
+> Minified by `uglifyjs -c -m -- localdata.js > localdata.min.js`
 
 ```javascript
 !function(){var r,i,e="undefined"!=typeof window?window:{},t=e.indexedDB||e.mozIndexedDB||e.webkitIndexedDB||e.msIndexedDB;"undefined"==typeof window||t?((t=t.open("ldb",1)).onsuccess=function(e){r=this.result},t.onerror=function(e){console.error("indexedDB request error"),console.log(e)},t.onupgradeneeded=function(e){r=null,e.target.result.createObjectStore("s",{keyPath:"k"}).transaction.oncomplete=function(e){r=e.target.db}},e.ldb=i={get:function(e,t){r?r.transaction("s").objectStore("s").get(e).onsuccess=function(e){e=e.target.result&&e.target.result.v||null;t(e)}:setTimeout(function(){i.get(e,t)},50)},set:function(t,n,o){if(r){let e=r.transaction("s","readwrite");e.oncomplete=function(e){"Function"==={}.toString.call(o).slice(8,-1)&&o()},e.objectStore("s").put({k:t,v:n}),e.commit()}else setTimeout(function(){i.set(t,n,o)},50)}},"undefined"!=typeof module&&(module.exports=i)):console.error("indexDB not supported")}();

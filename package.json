@@ -1,22 +1,22 @@
 {
-  "name": "localstoragebooster",
-  "version": "2.0.1",
+  "name": "localdata",
+  "version": "0.0.1",
   "description": "Increase localStorage size 10 times or more! This tiny script uses bare minimum of IndexedDB to give you a simple key - value local storage system. It's asnychchronous so it's performance is also faster than native localStorage(in theory and this must be confirmed by testing)",
-  "main": "localStorageDB.min.js",
+  "main": "localdata.min.js",
   "scripts": {
-    "build": "uglifyjs -c -m -- localStorageDB.js > localStorageDB.min.js",
+    "build": "uglifyjs -c -m -- localdata.js > localdata.min.js",
     "start": "http-server"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/DVLP/localStorageDB.git"
+    "url": "git+https://github.com/DVLP/localdata.git"
   },
   "author": "Pawel",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/DVLP/localStorageDB/issues"
+    "url": "https://github.com/DVLP/localdata/issues"
   },
-  "homepage": "https://github.com/DVLP/localStorageDB#readme",
+  "homepage": "https://github.com/DVLP/localdata#readme",
   "devDependencies": {
     "uglify-js": "^3.15.0"
   },
