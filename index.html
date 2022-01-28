@@ -1,1 +1,6 @@
-<script src="localStorageDB.js"></script>
+<h1 style="font-family: sans-serif;">Look in the console</h1>
+<script src="localStorageDB.min.js"></script>
+<script>
+  window.ldb.set('some_name', 'Hello, I\'m a value!')
+  window.ldb.get('some_name', (result) => console.log(result))
+</script>

@@ -1,15 +1,12 @@
 (function() {
-  var indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
-  if (!indexedDB) {
+  var win = typeof window !== 'undefined' ? window : {}
+  var indexedDB = win.indexedDB || win.mozIndexedDB || win.webkitIndexedDB || win.msIndexedDB;
+  if (typeof window !== 'undefined' && !indexedDB) {
     console.error('indexDB not supported');
     return;
   }
   var db,
-    keyValue = {
-      k: '',
-      v: ''
-    },
-    request = indexedDB.open('d2', 1);
+    request = indexedDB.open('ldb', 1);
   request.onsuccess = function(evt) {
     db = this.result;
   };
@@ -29,27 +26,24 @@
     };
   };
 
-  function getValue(key, callback) {
-    if(!db) {
-      setTimeout(function () {
-        getValue(key, callback);
-      }, 100);
-      return;
-    }
-    db.transaction('s').objectStore('s').get(key).onsuccess = function(event) {
-      var result = (event.target.result && event.target.result.v) || null;
-      callback(result);
-    };
-  }
-
   // if using proxy mode comment this
 
-  window['ldb'] = {
-    get: getValue,
+  var ldb = {
+    get: function(key, callback) {
+      if (!db) {
+        setTimeout(function () { ldb.get(key, callback); }, 50);
+        return;
+      }
+      db.transaction('s').objectStore('s').get(key).onsuccess = function(event) {
+        var result = (event.target.result && event.target.result['v']) || null;
+        callback(result);
+      };
+    },
     set: function(key, value, callback) {
-      // no callback for set needed because every next transaction will be anyway executed after this one
-      keyValue.k = key;
-      keyValue.v = value;
+      if (!db) {
+        setTimeout(function () { ldb.set(key, value, callback); }, 50);
+        return;
+      }
       let txn = db.transaction('s', 'readwrite'); 
       txn.oncomplete = function(event) {
         var toString$ = {}.toString;
@@ -57,9 +51,16 @@
           callback();
         }
       }
-      txn.objectStore('s').put(keyValue);
+      txn.objectStore('s').put({
+        'k': key,
+        'v': value,
+      });
       txn.commit();
     }
+  }
+  win['ldb'] = ldb;
+  if (typeof Module !== 'undefined') {
+    Module.exports = ldb;
   }
 
   // Use only for apps that will only work on latest devices only
@@ -71,9 +72,6 @@
   //     };
   //   },
   //   set: function(func, key, value) {
-  //     keyValue.k = key;
-  //     keyValue.v = value;
-
   //    let txn = db.transaction('s', 'readwrite'); 
   //    txn.oncomplete = function(event) {
   //      var toString$ = {}.toString;
@@ -81,7 +79,10 @@
   //        callback();
   //      }
   //    }
-  //    txn.objectStore('s').put(keyValue);
+  //    txn.objectStore('s').put({
+        //   'k': key,
+        //   'v': value,
+        // });
   //    txn.commit();
   //   }
   // });
