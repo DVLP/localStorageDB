@@ -3,7 +3,7 @@ Increase localStorage size 10 times or more! This tiny script uses bare minimum 
 
 * 10x more space than localStorage
 * Asynchronous - faster than localStorage
-* Minimal code - 0.76kB!
+* Minimal code - 1.6kB(0.75kB gzipped)!
 * No dependencies
 * Cross-browser support: Chrome, Firefox, IE 11+, Edge, iOS Safari, mobile Chrome, Android Browser
 
