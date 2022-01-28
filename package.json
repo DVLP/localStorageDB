@@ -1,6 +1,6 @@
 {
   "name": "localdata",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "Increase localStorage size 10 times or more! This tiny script uses bare minimum of IndexedDB to give you a simple key - value local storage system. It's asnychchronous so it's performance is also faster than native localStorage(in theory and this must be confirmed by testing)",
   "main": "localdata.min.js",
   "scripts": {
@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/DVLP/localdata.git"
+    "url": "git+https://github.com/DVLP/localStorageDB.git"
   },
   "author": "Pawel",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/DVLP/localdata/issues"
+    "url": "https://github.com/DVLP/localStorageDB/issues"
   },
-  "homepage": "https://github.com/DVLP/localdata#readme",
+  "homepage": "https://github.com/DVLP/localStorageDB#readme",
   "devDependencies": {
     "uglify-js": "^3.15.0"
   },
