@@ -1,6 +1,6 @@
 {
   "name": "localdata",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Increase localStorage size 10 times or more! This tiny script uses bare minimum of IndexedDB to give you a simple key - value local storage system. It's asnychchronous so it's performance is also faster than native localStorage(in theory and this must be confirmed by testing)",
   "main": "localdata.min.js",
   "scripts": {
